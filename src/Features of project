@@ -1,0 +1,39 @@
+1. Customer
+        Attributes -> CustomerID, Name, Email, Password, Address
+2. Cart
+        Attributes -> CartID CustomerID, ProductID
+3. Orders
+        Attributes -> OrderId, ProductID, CustomerID, Order Date
+4. Products:
+        Attributes -> ProductID, Name, price, description, quantity
+5. Admin:
+        Attributes -> Username, Password
+
+Customer Features
+    1. Authentication
+    2. View Profile
+    3. Update profile
+    4. View Products
+    5. Search product using name
+    6. Add product to cart
+    7. Delete product from cart
+    7. Order product and checkout
+    8. View Order History
+    9. Logout
+
+Admin Features:
+    1. Authentication
+    2. Update password and username
+    3. View all product
+    4. View All orders
+    5. View All customers
+    6. Add product
+    7. update product
+    8. delete product
+    9. Cancel order
+    10. Search Customer
+    11. Search order
+    12. Search products
+    13. Logout
+
+
