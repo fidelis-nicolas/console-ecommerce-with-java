@@ -33,7 +33,7 @@ public class Admin {
         this.password = password;
     }
 
-    public String password(){
+    public String getPassword(){
         return password;
     }
 
