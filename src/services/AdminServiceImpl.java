@@ -34,7 +34,8 @@ public class AdminServiceImpl implements AdminService{
     //Read up on service Facade
     @Override
     public String updateAdmin(String username, int id) throws SQLException {
-        boolean update = false;
+//        boolean update = false;
+        String message = "failed to update";
 
         // Establish a connection to the database
         Connection con = DBConnect.connectDB();
@@ -48,7 +49,7 @@ public class AdminServiceImpl implements AdminService{
 
         try {
             // Set the parameters for the prepared statement
-            statement.setString(1, adminOne);
+            statement.setString(1, username);
             statement.setInt(2, id);
 
             // Execute the update statement
@@ -56,7 +57,8 @@ public class AdminServiceImpl implements AdminService{
 
             // If rowsUpdated is greater than 0 , the update was successful
             if (rowsUpdated > 0) {
-                update = true;
+                message = "admin details successfully updated!!";
+
             }
         } catch (SQLException e) {
             // Handle any SQL exceptions that show up in the update process
@@ -73,7 +75,7 @@ public class AdminServiceImpl implements AdminService{
         }
 
         // Return statement to confirm if update was successful
-        return update ? "Admin username updated successfully" : "Failed to update admin username";
+        return  message;
     }
 
     @Override
@@ -84,8 +86,9 @@ public class AdminServiceImpl implements AdminService{
         ResultSet resultSet = statement.executeQuery();
 
         //StringBuilder builder = new StringBuilder();
+        System.out.printf("%-20s %-20s %-20s %-20s %-20s\n", "Product_ID", "Product Name", "Price", "Discription", "Qantity");
+
         while (resultSet.next()){
-            System.out.printf("%-20s %-20s %-20s %-20s %-20s\n", "Product_ID", "Product Name", "Price", "Discription", "Qantity");
             System.out.printf("%-20s %-20s %-20s %-20s %-20s\n", resultSet.getString("product_id"),
                     resultSet.getString("product_name"), resultSet.getString("price"),
                     resultSet.getString("description"), resultSet.getString("quantity"));
@@ -111,5 +114,11 @@ public class AdminServiceImpl implements AdminService{
                     resultSet.getString("product_name"), resultSet.getString("price")
                     );
         }
+    }
+
+    //To be completed by Mal
+    @Override
+    public void viewAllCustomers() throws SQLException {
+
     }
 }
