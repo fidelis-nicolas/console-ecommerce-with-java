@@ -33,8 +33,47 @@ public class AdminServiceImpl implements AdminService{
     // To be completed by Mal
     //Read up on service Facade
     @Override
-    public String updateAdmin(String userName, String password) throws SQLException {
-        return null;
+    public String updateAdmin(String username, int id) throws SQLException {
+        boolean update = false;
+
+        // Establish a connection to the database
+        Connection con = DBConnect.connectDB();
+        //PreparedStatement statement = null;
+
+        // SQL statement to update username
+        String query = "UPDATE admin SET username = ? WHERE id = ?";
+
+        // Prepared statement for executing the SQL query
+        PreparedStatement statement = con.prepareStatement(query);
+
+        try {
+            // Set the parameters for the prepared statement
+            statement.setString(1, adminOne);
+            statement.setInt(2, id);
+
+            // Execute the update statement
+            int rowsUpdated = statement.executeUpdate();
+
+            // If rowsUpdated is greater than 0 , the update was successful
+            if (rowsUpdated > 0) {
+                update = true;
+            }
+        } catch (SQLException e) {
+            // Handle any SQL exceptions that show up in the update process
+            e.printStackTrace(); // Print the stack trace of the exception
+        } finally {
+            // Close the prepared statement and database connection to release resources
+            if (statement != null) {
+                statement.close();
+            }
+
+            if (con != null) {
+                con.close();
+            }
+        }
+
+        // Return statement to confirm if update was successful
+        return update ? "Admin username updated successfully" : "Failed to update admin username";
     }
 
     @Override
