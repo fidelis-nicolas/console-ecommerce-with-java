@@ -78,7 +78,7 @@ public class AdminServiceImpl implements AdminService{
         return  message;
     }
 
-    @Override
+    /*@Override
     public void viewAllProduct() throws SQLException {
         Connection con = DBConnect.connectDB();
         String sql = "SELECT * FROM products";
@@ -93,7 +93,7 @@ public class AdminServiceImpl implements AdminService{
                     resultSet.getString("product_name"), resultSet.getString("price"),
                     resultSet.getString("description"), resultSet.getString("quantity"));
         }
-    }
+    }*/
 
     @Override
     public void viewAllOrders() throws SQLException {

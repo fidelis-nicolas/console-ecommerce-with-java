@@ -5,6 +5,7 @@ import entities.Products;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ProductServiceImpl implements ProductService{
@@ -32,6 +33,23 @@ public class ProductServiceImpl implements ProductService{
             System.out.println("Error!!!");
         }
 
+    }
+
+    @Override
+    public void viewAllProduct() throws SQLException {
+        Connection con = DBConnect.connectDB();
+        String sql = "SELECT * FROM products";
+        PreparedStatement statement = con.prepareStatement(sql);
+        ResultSet resultSet = statement.executeQuery();
+
+        //StringBuilder builder = new StringBuilder();
+        System.out.printf("%-20s %-20s %-20s %-20s %-20s\n", "Product_ID", "Product Name", "Price", "Discription", "Qantity");
+
+        while (resultSet.next()){
+            System.out.printf("%-20s %-20s %-20s %-20s %-20s\n", resultSet.getString("product_id"),
+                    resultSet.getString("product_name"), resultSet.getString("price"),
+                    resultSet.getString("description"), resultSet.getString("quantity"));
+        }
     }
 
     @Override
