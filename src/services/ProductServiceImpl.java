@@ -53,12 +53,72 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public String updateProduct(int id) throws SQLException {
-        return null;
+    public String updateProduct(String product_name, int product_id) throws SQLException {
+
+        String message = "error";
+
+        Connection con = DBConnect.connectDB();
+
+        String updateSql = "UPDATE products SET product_name = ? WHERE product_id = ?";
+        PreparedStatement statement = con.prepareStatement(updateSql);
+
+        statement.setString(1, product_name);
+        statement.setInt(2, product_id);
+
+        int productUpdated = statement.executeUpdate();
+
+        if (productUpdated > 0) {
+            message = "product successfully updated";
+        }
+
+
+        return message;
     }
 
     @Override
-    public String deleteProduct(int id) throws SQLException {
-        return null;
+    public String deleteProduct(int product_id) throws SQLException {
+
+        String confirmationMessage = "error";
+
+        Connection con = DBConnect.connectDB();
+
+        String deleteSql = "DELETE FROM products WHERE product_id = ?";
+        PreparedStatement   statement = con.prepareStatement(deleteSql);
+
+        statement.setInt(1, product_id);
+
+        int productDeleted = statement.executeUpdate();
+
+        if (productDeleted > 0) {
+            confirmationMessage = "product is now deleted";
+        }
+
+        return confirmationMessage;
+    }
+
+    @Override
+    public boolean searchProduct(String product_name) throws SQLException {
+        boolean confirmationMessage = false;
+
+        Connection con = DBConnect.connectDB();
+
+        String searchSql = "SELECT * FROM products WHERE  product_name = ?";
+        PreparedStatement statement = con.prepareStatement(searchSql);
+
+        statement.setString(1, product_name);
+        //statement.setInt(2, product_id);
+
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            String productName = resultSet.getString("product_name");
+            System.out.println( "Product Name: " + productName);
+            confirmationMessage = true;
+        }
+        //confirmationMessage = true;
+        System.out.println();
+
+
+        return confirmationMessage;
     }
 }

@@ -20,6 +20,12 @@ public class Customer {
         this.password = password;
     }
 
+    // Constructor to authenticate customer
+    public Customer(String customerName, String customerEmail){
+        this.customerName = customerName;
+        this.customerEmail = customerEmail;
+    }
+
     public int getId() {
         return id;
     }

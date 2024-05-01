@@ -22,6 +22,12 @@ public class Orders {
         this.orderStatus = orderStatus;
     }
 
+    // New constructor to add new orders
+    public Orders(Date orderDate, String orderStatus){
+        this.orderDate = orderDate;
+        this.orderStatus = orderStatus;
+    }
+
 
 
     // Getters & Setters
@@ -57,6 +63,10 @@ public class Orders {
         return orderDate;
     }
 
+    public void setOrderStatus(String orderStatus){this.orderStatus = orderStatus;}
+
+    public String getOrderStatus(){return orderStatus;}
+
     // To string
     @Override
     public String toString() {
@@ -65,6 +75,7 @@ public class Orders {
                 ", productID=" + productID +
                 ", customerID=" + customerID +
                 ", orderDate=" + orderDate +
+                ", orderStatus=" + orderStatus +
                 '}';
     }
 
@@ -73,11 +84,11 @@ public class Orders {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Orders orders = (Orders) o;
-        return orderID == orders.orderID && productID == orders.productID && customerID == orders.customerID && Objects.equals(orderDate, orders.orderDate);
+        return orderID == orders.orderID && productID == orders.productID && customerID == orders.customerID && Objects.equals(orderDate, orders.orderDate) && Objects.equals(orderStatus, orders.orderStatus);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderID, productID, customerID, orderDate);
+        return Objects.hash(orderID, productID, customerID, orderDate, orderStatus);
     }
 }
