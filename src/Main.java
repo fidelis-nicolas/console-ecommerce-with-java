@@ -47,7 +47,7 @@ public class Main {
         //*******************************************************************************************************
         // Call all customers methods here
         CustomerService customerService = new CustomerServiceImpl();
-        customerService.authenticateCustomer("Lee", "lee@email.com");
+        customerService.authenticateCustomer("pop@email.com", "password");
         System.out.println(CustomerServiceImpl.customerId);
 
         //*******************************************************************************************************

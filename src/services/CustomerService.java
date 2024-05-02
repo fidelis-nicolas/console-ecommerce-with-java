@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public interface CustomerService {
 
-    boolean authenticateCustomer(String customerName, String customerEmail) throws SQLException;
+    boolean authenticateCustomer(String customerEmail, String password) throws SQLException;
     void viewallCustomers() throws SQLException;
 
     String searchAllCustomers(String customer_name, int customer_id) throws SQLException;
