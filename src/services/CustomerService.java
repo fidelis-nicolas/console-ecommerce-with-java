@@ -1,5 +1,7 @@
 package services;
 
+import entities.Customer;
+
 import java.sql.SQLException;
 
 public interface CustomerService {
@@ -9,5 +11,6 @@ public interface CustomerService {
 
     String searchAllCustomers(String customer_name, int customer_id) throws SQLException;
 
+    String createAccount(Customer customer) throws SQLException;
 
 }

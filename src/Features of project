@@ -10,7 +10,7 @@
         Attributes -> Username, Password
 
 Customer Features
-    1. Authentication
+    1. Authentication (create account)
     2. View Profile
     3. Update profile
     4. View Products
@@ -30,10 +30,14 @@ Admin Features:
     6. Add product
     7. update product
     8. delete product
-    9. Cancel order
+    9. Cancel order convert to change order status
     10. Search Customer
     11. Search order
     12. Search products
     13. Logout
+
+Orders Features:
+    1. Update order status where
+    2.
 
 

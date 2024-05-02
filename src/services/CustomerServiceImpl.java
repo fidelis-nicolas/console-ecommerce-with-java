@@ -10,13 +10,15 @@ import java.sql.SQLException;
 
 public class CustomerServiceImpl implements CustomerService{
     public static Customer customer;
+
+    public static int customerId;
     @Override
     public boolean authenticateCustomer(String customerName, String customerEmail) throws SQLException {
         boolean login = false;
 
         Connection con = DBConnect.connectDB();
 
-        String loginSql = "SELECT customer_name, customer_email FROM customers WHERE customer_name = ? AND customer_email = ?";
+        String loginSql = "SELECT customer_name, customer_email, customer_id FROM customers WHERE customer_name = ? AND customer_email = ?";
         PreparedStatement statement = con.prepareStatement(loginSql);
 
         statement.setString(1, customerName);
@@ -24,8 +26,9 @@ public class CustomerServiceImpl implements CustomerService{
 
         ResultSet resultSet = statement.executeQuery();
         if (resultSet.next()){
-            customer = new Customer(resultSet.getString("customer_name"),
-                    resultSet.getString("customer_email"));
+            customerId = resultSet.getInt("customer_id");
+//            customer = new Customer(resultSet.getString("customer_name"),
+//                    resultSet.getString("customer_email"));
             //System.out.println(customer.getCustomerName());
             //System.out.println(customer.getCustomerEmail());
 
@@ -51,4 +54,11 @@ public class CustomerServiceImpl implements CustomerService{
     public String searchAllCustomers(String customer_name, int customer_id) throws SQLException {
         return null;
     }
+
+    @Override
+    public String createAccount(Customer customer) throws SQLException {
+        return null;
+    }
+
+
 }
