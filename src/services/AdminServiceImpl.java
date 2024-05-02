@@ -78,43 +78,6 @@ public class AdminServiceImpl implements AdminService{
         return  message;
     }
 
-    @Override
-    public void viewAllProduct() throws SQLException {
-        Connection con = DBConnect.connectDB();
-        String sql = "SELECT * FROM products";
-        PreparedStatement statement = con.prepareStatement(sql);
-        ResultSet resultSet = statement.executeQuery();
-
-        //StringBuilder builder = new StringBuilder();
-        System.out.printf("%-20s %-20s %-20s %-20s %-20s\n", "Product_ID", "Product Name", "Price", "Discription", "Qantity");
-
-        while (resultSet.next()){
-            System.out.printf("%-20s %-20s %-20s %-20s %-20s\n", resultSet.getString("product_id"),
-                    resultSet.getString("product_name"), resultSet.getString("price"),
-                    resultSet.getString("description"), resultSet.getString("quantity"));
-        }
-    }
-
-    @Override
-    public void viewAllOrders() throws SQLException {
-        Connection con = DBConnect.connectDB();
-        String sql = "SELECT order_id, oder_date, order_status, customer_name, customer_email, cusotmer_address, product_name, price\n" +
-                "FROM orders INNER JOIN customers ON orders.customer_id = customers.customer_id\n" +
-                "INNER JOIN products ON orders.product_id = products.product_id;";
-        PreparedStatement statement = con.prepareStatement(sql);
-        ResultSet resultSet = statement.executeQuery();
-
-        while (resultSet.next()){
-            System.out.printf("%-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s\n", "Order ID", "Order Date",
-                    "Oder Status", "Customer name", "Customer email", "Customer Address", "Product name", "product price");
-
-            System.out.printf("%-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s\n", resultSet.getString("order_id"),
-                    resultSet.getString("oder_date"), resultSet.getString("order_status"),
-                    resultSet.getString("customer_name"), resultSet.getString("cusotmer_address"),
-                    resultSet.getString("product_name"), resultSet.getString("price")
-                    );
-        }
-    }
 
     //To be completed by Mal
     @Override
