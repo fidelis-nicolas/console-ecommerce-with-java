@@ -1,9 +1,6 @@
-import entities.Orders;
-import entities.Products;
 import services.*;
-import view.Utilities;
+import view.MainView;
 
-import java.sql.Date;
 import java.sql.SQLException;
 
 public class Main {
@@ -46,9 +43,9 @@ public class Main {
 
         //*******************************************************************************************************
         // Call all customers methods here
-        CustomerService customerService = new CustomerServiceImpl();
-        customerService.authenticateCustomer("Lee", "lee@email.com");
-        System.out.println(CustomerServiceImpl.customerId);
+//        CustomerService customerService = new CustomerServiceImpl();
+//        customerService.authenticateCustomer("1245", "fidelis@email.com");
+//        System.out.println(CustomerServiceImpl.customerId);
 
         //*******************************************************************************************************
         // Call all orders methods here
@@ -62,5 +59,8 @@ public class Main {
         Orders orders2 = new Orders(orderDate2, "pending");
         orderService.addOrders(orders1);
         orderService.addOrders(orders2);*/
+
+        MainView mainView = new MainView();
+        mainView.mainMenu();
     }
 }

@@ -13,29 +13,24 @@ public class CustomerServiceImpl implements CustomerService{
 
     public static int customerId;
     @Override
-    public boolean authenticateCustomer(String customerName, String customerEmail) throws SQLException {
+    public boolean authenticateCustomer(String password, String customerEmail) throws SQLException {
         boolean login = false;
 
         Connection con = DBConnect.connectDB();
 
-        String loginSql = "SELECT customer_name, customer_email, customer_id FROM customers WHERE customer_name = ? AND customer_email = ?";
+        String loginSql = "SELECT password, customer_email, customer_id FROM customers WHERE password = ? AND customer_email = ?";
         PreparedStatement statement = con.prepareStatement(loginSql);
 
-        statement.setString(1, customerName);
+        statement.setString(1, password);
         statement.setString(2, customerEmail);
 
         ResultSet resultSet = statement.executeQuery();
-        if (resultSet.next()){
+        while (resultSet.next()){
             customerId = resultSet.getInt("customer_id");
-//            customer = new Customer(resultSet.getString("customer_name"),
-//                    resultSet.getString("customer_email"));
-            //System.out.println(customer.getCustomerName());
-            //System.out.println(customer.getCustomerEmail());
-
             login = true;
         }
 
-        if(login = true){
+        if(login){
             System.out.println("Login successful");
         } else {
             System.out.println("Authentication failed");
