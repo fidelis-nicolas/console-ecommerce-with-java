@@ -1,7 +1,7 @@
 package view;
 
-import services.AdminService;
-import services.AdminServiceImpl;
+import entities.Products;
+import services.*;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -9,6 +9,10 @@ import java.util.Scanner;
 public class AdminView {
 
     AdminService service = new AdminServiceImpl();
+    ProductService productService = new ProductServiceImpl();
+    CustomerService customerService = new CustomerServiceImpl();
+
+    OrderService orderService  = new OrderServiceImpl();
     Scanner scanner = new Scanner(System.in);
     public void login(){
         System.out.print("Username: ");
@@ -25,6 +29,36 @@ public class AdminView {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void addNewProduct() throws SQLException {
+        Scanner in = new Scanner(System.in);
+        Scanner des = new Scanner(System.in);
+        System.out.print("Enter product name: ");
+        String prodName = in.nextLine();
+        System.out.print("Price: ");
+        double prodPrice = in.nextDouble();
+
+        System.out.print("Quantity: ");
+        int prodQuantity = in.nextInt();
+
+        System.out.print("Description: ");
+        String prodDescription = des.nextLine();
+
+
+        productService.addProduct(new Products(prodName, prodPrice, prodDescription, prodQuantity));
+    }
+    public void updateProduct() throws SQLException {
+        Scanner in = new Scanner(System.in);
+        System.out.print("Enter product name: ");
+        String prodName = in.nextLine();
+        System.out.print("Price: ");
+        double prodPrice = in.nextDouble();
+        System.out.print("Quantity: ");
+        int prodQuantity = in.nextInt();
+        System.out.print("Product ID: ");
+        int prodId = in.nextInt();
+        productService.updateProduct(prodName,prodPrice, prodQuantity, prodId);
     }
 
     private void adminMenu() throws SQLException {
@@ -49,7 +83,43 @@ public class AdminView {
                     System.out.print("Enter new Username: ");
                     String newUsername = scanner.next();
                     service.updateAdmin(newUsername, 1);
+
                     break;
+                case 2:
+                    productService.viewAllProduct();
+                    try {
+                        Thread.sleep(10000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+
+                case 3:
+                    orderService.viewAllOrders();
+                    try {
+                        Thread.sleep(10000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+                case 4:
+                    customerService.viewallCustomers();
+                    try {
+                        Thread.sleep(10000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+                case 5:
+                    addNewProduct();
+                    break;
+                case 6:
+                    updateProduct();
+                    break;
+                case 7:
+                    System.out.print("Enter product ID: ");
+                    int id = scanner.nextInt();
+                    productService.deleteProduct(id);
             }
         }
     }

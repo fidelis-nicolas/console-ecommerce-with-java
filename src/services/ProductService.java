@@ -10,7 +10,7 @@ public interface ProductService {
 
     void viewAllProduct()throws SQLException;
 
-    String updateProduct(String product_name, int product_id) throws SQLException;
+    String updateProduct(String product_name, double productPrice, int productQuantity, int product_id) throws SQLException;
 
     String deleteProduct(int product_id) throws SQLException;
 
