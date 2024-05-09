@@ -40,12 +40,14 @@ public class Main {
 
         //*******************************************************************************************************
         // Call all cart methods here
+        CartService cartService = new CartServiceImpl();
+        cartService.viewCart();
 
         //*******************************************************************************************************
         // Call all customers methods here
-        CustomerService customerService = new CustomerServiceImpl();
-        customerService.authenticateCustomer("Lee", "lee@email.com");
-        System.out.println(CustomerServiceImpl.customerId);
+//        CustomerService customerService = new CustomerServiceImpl();
+//        customerService.authenticateCustomer("Lee", "lee@email.com");
+//        System.out.println(CustomerServiceImpl.customerId);
 
         //*******************************************************************************************************
         // Call all orders methods here

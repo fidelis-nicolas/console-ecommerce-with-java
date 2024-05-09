@@ -78,10 +78,4 @@ public class AdminServiceImpl implements AdminService{
         return  message;
     }
 
-
-    //To be completed by Mal
-    @Override
-    public void viewAllCustomers() throws SQLException {
-
-    }
 }
