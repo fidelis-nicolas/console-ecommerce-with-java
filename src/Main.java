@@ -1,9 +1,6 @@
-import entities.Orders;
-import entities.Products;
 import services.*;
-import view.Utilities;
+import view.MainView;
 
-import java.sql.Date;
 import java.sql.SQLException;
 
 public class Main {
@@ -47,7 +44,7 @@ public class Main {
         //*******************************************************************************************************
         // Call all customers methods here
         CustomerService customerService = new CustomerServiceImpl();
-        customerService.authenticateCustomer("pop@email.com", "password");
+        customerService.authenticateCustomer("Lee", "lee@email.com");
         System.out.println(CustomerServiceImpl.customerId);
 
         //*******************************************************************************************************

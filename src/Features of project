@@ -10,7 +10,7 @@
         Attributes -> Username, Password
 
 Customer Features
-    1. Authentication (create account)
+    1. Authentication (login/create account)
     2. View Profile
     3. Update profile
     4. View Products

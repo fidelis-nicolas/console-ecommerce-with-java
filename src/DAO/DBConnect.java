@@ -8,12 +8,12 @@ import java.sql.SQLException;
 
 public class DBConnect {
     public static Connection connectDB() throws SQLException {
-//        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mal_ecommerce", "root", "Fidelis@123");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mal_ecommerce", "root", "Fidelis@123");
+        //System.out.println("Connection successful");
+        return con;
+
+//        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ecommerce_db", "root", "password123");
 //        System.out.println("Connection successful");
 //        return con;
-
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ecommerce_db", "root", "password123");
-        System.out.println("Connection successful");
-        return con;
     }
 }

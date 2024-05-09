@@ -53,17 +53,19 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public String updateProduct(String product_name, int product_id) throws SQLException {
+    public String updateProduct(String product_name, double productPrice, int productQuantity, int product_id) throws SQLException {
 
         String message = "error";
 
         Connection con = DBConnect.connectDB();
 
-        String updateSql = "UPDATE products SET product_name = ? WHERE product_id = ?";
+        String updateSql = "UPDATE products SET product_name = ?, price = ?, quantity = ? WHERE product_id = ?";
         PreparedStatement statement = con.prepareStatement(updateSql);
 
         statement.setString(1, product_name);
-        statement.setInt(2, product_id);
+        statement.setDouble(2, productPrice);
+        statement.setInt(3, productQuantity);
+        statement.setInt(4, product_id);
 
         int productUpdated = statement.executeUpdate();
 
