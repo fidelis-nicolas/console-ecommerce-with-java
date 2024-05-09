@@ -40,11 +40,13 @@ public class Main {
 
         //*******************************************************************************************************
         // Call all cart methods here
+        CartService cartService = new CartServiceImpl();
+        cartService.viewCart();
 
         //*******************************************************************************************************
         // Call all customers methods here
 //        CustomerService customerService = new CustomerServiceImpl();
-//        customerService.authenticateCustomer("1245", "fidelis@email.com");
+//        customerService.authenticateCustomer("Lee", "lee@email.com");
 //        System.out.println(CustomerServiceImpl.customerId);
 
         //*******************************************************************************************************
@@ -59,8 +61,5 @@ public class Main {
         Orders orders2 = new Orders(orderDate2, "pending");
         orderService.addOrders(orders1);
         orderService.addOrders(orders2);*/
-
-        MainView mainView = new MainView();
-        mainView.mainMenu();
     }
 }

@@ -8,6 +8,5 @@ public interface AdminService {
 
      String updateAdmin(String username, int id) throws SQLException;
 
-     void viewAllCustomers()throws SQLException;
 
 }
