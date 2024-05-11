@@ -104,7 +104,7 @@ public class ProductServiceImpl implements ProductService{
 
         Connection con = DBConnect.connectDB();
 
-        String searchSql = "SELECT * FROM products WHERE  product_name = ?";
+        String searchSql = "SELECT * FROM products WHERE product_name LIKE '?%'";
         PreparedStatement statement = con.prepareStatement(searchSql);
 
         statement.setString(1, product_name);
@@ -112,15 +112,21 @@ public class ProductServiceImpl implements ProductService{
 
         ResultSet resultSet = statement.executeQuery();
 
-        while (resultSet.next()) {
-            String productName = resultSet.getString("product_name");
-            System.out.println( "Product Name: " + productName);
-            confirmationMessage = true;
-        }
-        //confirmationMessage = true;
-        System.out.println();
+
+            //StringBuilder builder = new StringBuilder();
+            System.out.printf("%-20s %-20s %-20s %-20s %-20s\n", "Product_ID", "Product Name", "Price", "Discription", "Qantity");
+
+            while (resultSet.next()) {
+                System.out.printf("%-20s %-20s %-20s %-20s %-20s\n", resultSet.getString("product_id"),
+                        resultSet.getString("product_name"), resultSet.getString("price"),
+                        resultSet.getString("description"), resultSet.getString("quantity"));
+                confirmationMessage = true;
+            }
+            //confirmationMessage = true;
+            System.out.println();
 
 
-        return confirmationMessage;
+            return confirmationMessage;
+
     }
 }

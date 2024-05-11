@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CustomerServiceImpl implements CustomerService{
+    //find a way make
     public static Customer customer;
 
     public static int customerId;

@@ -13,18 +13,25 @@ public class CartServiceImpl implements CartService {
 
 
     @Override
-    public void viewCart() throws SQLException {
+    public void viewCart(int customerId) throws SQLException {
         Connection con = DBConnect.connectDB();
 
-        String cartSql = "SELECT * FROM customers";
+        String cartSql = "SELECT cart_id, products.product_name, price, products.description, products.product_id FROM cart\n" +
+                "join products on cart.product_id = products.product_id \n" +
+                "join customers on cart.customer_id = customers.customer_id\n" +
+                "where customers.customer_id = ?";
         PreparedStatement statement = con.prepareStatement(cartSql);
+        statement.setInt(1, customerId);
         ResultSet resultSet = statement.executeQuery();
 
-        System.out.printf("%-20s %-20s %-20s\n", "Cart_ID", "Customer_ID", "Product_ID");
+        System.out.printf("%-20s %-20s %-20s %-20s %-20s\n", "Cart_ID", "Product Name", "Price", "Description", "Product Id");
 
         while (resultSet.next()) {
-            System.out.printf("%-20s %-20s %-20s\n", resultSet.getInt("cart_id"),
-                    resultSet.getInt("customer_id"), resultSet.getInt("product_id"));
+            System.out.printf("%-20s %-20s %-20s %-20s %-20s\n", resultSet.getInt("cart_id"),
+                    resultSet.getString("product_name"), resultSet.getDouble("price"),
+                    resultSet.getString("description"), resultSet.getInt("product_id")
+
+            );
         }
     }
 
@@ -34,12 +41,18 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public String AddToCart(int productId, Products products) throws SQLException {
+    public String AddToCart(int productId, int customerId) throws SQLException {
 
         Connection con = DBConnect.connectDB();
 
-        String addToCartSql = "INSERT INTO carts VALUES(null,null null)";
+        String addToCartSql = "INSERT INTO cart VALUES(null, ?, ?)";
 
-        return null;
+        PreparedStatement statement = con.prepareStatement(addToCartSql);
+        statement.setInt(1, customerId);
+        statement.setInt(2, productId);
+        if(statement.execute()){
+            return "Cart added successfully";
+        }
+        return "Failed to add to cart!!!";
     }
 }
