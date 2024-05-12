@@ -104,7 +104,7 @@ public class ProductServiceImpl implements ProductService{
 
         Connection con = DBConnect.connectDB();
 
-        String searchSql = "SELECT * FROM products WHERE product_name LIKE '?%'";
+        String searchSql = "SELECT * FROM products WHERE product_name LIKE ?";
         PreparedStatement statement = con.prepareStatement(searchSql);
 
         statement.setString(1, product_name);

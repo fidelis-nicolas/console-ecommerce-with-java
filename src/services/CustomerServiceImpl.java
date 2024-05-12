@@ -64,14 +64,14 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public boolean searchAllCustomers(String customer_name, int customer_id) throws SQLException {
+    public boolean searchAllCustomers(String customer_name) throws SQLException {
         boolean confirmSearch = false;
 
         Connection con = DBConnect.connectDB();
-        String searchCustomerSql = "SELECT * FROM customers WHERE customer_name = ?";
+        String searchCustomerSql = "SELECT * FROM customers WHERE customer_name LIKE ?";
         PreparedStatement statement = con.prepareStatement(searchCustomerSql);
 
-        statement.setString(1, customer_name);
+        statement.setString(1, customer_name );
 
         ResultSet resultSet = statement.executeQuery();
 
