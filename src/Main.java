@@ -8,8 +8,11 @@ public class Main {
     public static void main(String[] args) throws SQLException {
 
 
-        MainView mainView = new MainView();
-        mainView.mainMenu();
+//        MainView mainView = new MainView();
+//        mainView.mainMenu();
+
+        ProductService productService = new ProductServiceImpl();
+        productService.searchProduct("t");
 
 
 
