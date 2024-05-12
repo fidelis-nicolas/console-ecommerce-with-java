@@ -12,5 +12,8 @@ public interface CustomerService {
     boolean searchAllCustomers(String customer_name) throws SQLException;
 
     String createAccount(Customer customer) throws SQLException;
+    void viewCustomerProfile(int customerId) throws SQLException;
+    String updateCustomerProfile(int customerId, String customerName, String customerPassword, String email, String address)throws SQLException;
+
 
 }
