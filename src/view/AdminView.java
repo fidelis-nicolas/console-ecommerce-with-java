@@ -120,6 +120,23 @@ public class AdminView {
                     System.out.print("Enter product ID: ");
                     int id = scanner.nextInt();
                     productService.deleteProduct(id);
+                    break;
+                case 8:
+                    break;
+                case 9:
+                    System.out.print("Enter the customer name to search");
+                    String customer_name = scanner.nextLine();
+                    if(customerService.searchAllCustomers(customer_name)){
+
+                    }else {
+                        System.out.println("Product not found");
+                    }
+                    //boolean searchResult = customerService.searchAllCustomers(customer_name);
+//                    if (searchResult) {
+//                        System.out.println("Customer found");
+//                    } else {
+//                        System.out.println("Customer not found");
+//                    }
             }
         }
     }
