@@ -107,7 +107,7 @@ public class ProductServiceImpl implements ProductService{
         String searchSql = "SELECT * FROM products WHERE product_name LIKE ?";
         PreparedStatement statement = con.prepareStatement(searchSql);
 
-        statement.setString(1, product_name);
+        statement.setString(1, product_name + "%");
         //statement.setInt(2, product_id);
 
         ResultSet resultSet = statement.executeQuery();

@@ -124,13 +124,20 @@ public class AdminView {
                 case 8:
                     break;
                 case 9:
-                    System.out.print("Enter the customer name to search");
+                    scanner.nextLine();
+                    System.out.print("Enter the customer name to search: ");
                     String customer_name = scanner.nextLine();
                     if(customerService.searchAllCustomers(customer_name)){
 
                     }else {
-                        System.out.println("Product not found");
+                        System.out.println("customer not found");
                     }
+                    try {
+                        Thread.sleep(10000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
                     //boolean searchResult = customerService.searchAllCustomers(customer_name);
 //                    if (searchResult) {
 //                        System.out.println("Customer found");
