@@ -60,19 +60,18 @@ public class CustomerView {
         System.out.println("8. Order product and checkout");
         System.out.println("9. View Order History");
         System.out.println("10. Logout");
+
         System.out.print("Enter option: ");
-
-        String option = scanner.nextLine();
-
+        int option = scanner.nextInt();
         switch (option) {
-            case "1":
+            case 1:
                 break;
-            case "2":
+            case 2:
                 break;
-            case "3":
+            case 3:
                 productService.viewAllProduct();
                 break;
-            case "4":
+            case 4:
                 System.out.print("Enter product name: ");
                 String productName = scanner.nextLine();
                 if(productService.searchProduct(productName)){
@@ -81,16 +80,24 @@ public class CustomerView {
                     System.out.println("Product not found");
                 }
                 break;
-            case "5":
+            case 5:
                 System.out.print("Enter the product ID: ");
                 String productId = scanner.nextLine();
                 int prodId = Integer.parseInt(productId);
                 int customerId = CustomerServiceImpl.customerId;
                 cartService.AddToCart(prodId, customerId);
                 break;
-            case "6":
+            case 6:
                 cartService.viewCart(CustomerServiceImpl.customerId);
                 Thread.sleep(10000);
+                break;
+            case 7:
+                // This should be from cart service but then our cart only has order id and the rest, not designed from a customer POV
+                scanner.nextLine();
+                System.out.print("Enter the name of the product you want to remove from cart: ");
+                String name = scanner.nextLine();
+                productService.deleteProductbyName(name);
+                System.out.println("Product has been removed from your cart");
                 break;
             default:
                 System.out.println("Invalid option selected");

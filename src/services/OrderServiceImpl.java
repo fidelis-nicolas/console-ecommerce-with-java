@@ -28,12 +28,41 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public int cancelOrders(int order_id) throws SQLException {
-        return 0;
+    public String cancelOrders(int orderID, String orderStatus) throws SQLException {
+        String message = "success";
+        Connection con = DBConnect.connectDB();
+
+        String cancelSql = "UPDATE orders SET order_status = ? WHERE order_id = ?";
+
+        PreparedStatement statement = con.prepareStatement(cancelSql);
+        statement.setString(1, orderStatus);
+        statement.setInt(2, orderID);
+
+        int updatedStatus = statement.executeUpdate();
+        // How do we account for when the order id doesnt exists ?
+        if (updatedStatus == 0) {
+            message = "No order found with ID: " + orderID;
+        } else {
+            System.out.printf("%-20s %-20s %-20s %-20s %-20s\n", "Order_ID", "Product_ID", "Customer_ID", "Order_Date", "Order_Status");
+
+            //Fetch and display updated order
+            String updatedSql = "SELECT * FROM orders WHERE order_id = ?";
+            PreparedStatement updateStatement = con.prepareStatement(updatedSql);
+            updateStatement.setInt(1, orderID);
+
+            ResultSet resultSet = updateStatement.executeQuery();
+            while (resultSet.next()){
+                System.out.printf("%-20s %-20s %-20s %-20s %-20s\n", resultSet.getInt("order_id"),
+                        resultSet.getInt("product_id"), resultSet.getInt("customer_id"),
+                        resultSet.getDate("order_date"), resultSet.getString("order_status"));
+            }
+        }
+
+        return message;
     }
 
     @Override
-    public Date searchOrders(Date order_date) throws SQLException {
+    public java.sql.Date searchOrders(Date order_date) throws SQLException {
 
         Connection con = DBConnect.connectDB();
 
@@ -45,8 +74,14 @@ public class OrderServiceImpl implements OrderService {
 
         ResultSet resultSet = statement.executeQuery();
 
+        System.out.printf("%-20s %-20s %-20s %-20s %-20s\n", "Order_ID", "Product_ID", "Customer_ID", "Order_Date", "Order_Status");
+
+
         while (resultSet.next()) {
-            Date orderDate = resultSet.getDate("order_date");
+            java.sql.Date orderDate = resultSet.getDate("order_date");
+            System.out.printf("%-20s %-20s %-20s %-20s %-20s\n", resultSet.getInt("order_id"),
+                    resultSet.getInt("product_id"), resultSet.getInt("customer_id"), orderDate, resultSet.getString("order_status"));
+            return orderDate;
         }
         return null;
     }

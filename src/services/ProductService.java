@@ -12,7 +12,9 @@ public interface ProductService {
 
     String updateProduct(String product_name, double productPrice, int productQuantity, int product_id) throws SQLException;
 
-    String deleteProduct(int product_id) throws SQLException;
+    String deleteProduct(int productID) throws SQLException;
+
+    String deleteProductbyName(String productName) throws SQLException;
 
     boolean searchProduct(String product_name) throws SQLException;
 

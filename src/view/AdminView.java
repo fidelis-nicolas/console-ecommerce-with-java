@@ -3,7 +3,10 @@ package view;
 import entities.Products;
 import services.*;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
 public class AdminView {
@@ -59,6 +62,16 @@ public class AdminView {
         System.out.print("Product ID: ");
         int prodId = in.nextInt();
         productService.updateProduct(prodName,prodPrice, prodQuantity, prodId);
+    }
+
+    public void updateOrderStatus() throws SQLException {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the order ID you want to update: ");
+        int orderID = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Enter the order status: ");
+        String orderStats = scanner.nextLine();
+        orderService.cancelOrders(orderID, orderStats);
     }
 
     private void adminMenu() throws SQLException {
@@ -119,15 +132,18 @@ public class AdminView {
                 case 7:
                     System.out.print("Enter product ID: ");
                     int id = scanner.nextInt();
-                    productService.deleteProduct(id);
+                    productService.deleteProduct(id); // here had to pass in name because i modified the method to accept name from customers POV
+                    // Update I've created a new method to delete just by name for customers only
                     break;
                 case 8:
+                    scanner.nextLine();
+                    updateOrderStatus();
                     break;
                 case 9:
                     scanner.nextLine();
                     System.out.print("Enter the customer name to search: ");
-                    String customer_name = scanner.nextLine();
-                    if(customerService.searchAllCustomers(customer_name)){
+                    String customerName = scanner.nextLine();
+                    if(customerService.searchAllCustomers(customerName)){
 
                     }else {
                         System.out.println("customer not found");
@@ -138,12 +154,45 @@ public class AdminView {
                         throw new RuntimeException(e);
                     }
                     break;
-                    //boolean searchResult = customerService.searchAllCustomers(customer_name);
-//                    if (searchResult) {
-//                        System.out.println("Customer found");
-//                    } else {
-//                        System.out.println("Customer not found");
-//                    }
+                case 10:
+                    scanner.nextLine();
+                    System.out.println("Enter the date for the order you want to search for (YYYY-MM-DD): ");
+                    String dateString = scanner.nextLine();
+
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    try {
+                        java.sql.Date date = new java.sql.Date(dateFormat.parse(dateString).getTime());
+                        java.sql.Date foundDate = orderService.searchOrders(date);
+                        if (foundDate != null){
+
+                        } else {
+                            System.out.println("Order not found");
+                        }
+                    } catch (ParseException e) {
+                        System.out.println("Invalid date format. Please enter the date in this format YYYY-MM-DD");
+                    }
+                    try {
+                        // Rationale for thread : Give users a brief pause after displaying the result before viewing the list of options.
+                        Thread.sleep(10000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+                case 11:
+                    scanner.nextLine();
+                    System.out.println("Enter the name of the product you want to search: ");
+                    String productSearch = scanner.nextLine();
+                    if (productService.searchProduct(productSearch)){
+
+                    } else {
+                        System.out.println("Product is not available");
+                    }
+                    break;
+                case 12:
+                    scanner.nextLine();
+                    System.out.println("Logout successful");
+                    // Here, the user can enter username/password to logout, but seems unnecessary to me.
+                default:
             }
         }
     }
