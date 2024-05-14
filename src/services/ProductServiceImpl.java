@@ -78,16 +78,16 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public String deleteProduct(int product_id) throws SQLException {
+    public String deleteProduct(int productID) throws SQLException {
 
         String confirmationMessage = "error";
 
         Connection con = DBConnect.connectDB();
 
-        String deleteSql = "DELETE FROM products WHERE product_id = ?";
+        String deleteSql = "DELETE FROM products WHERE product_id = ? ";
         PreparedStatement   statement = con.prepareStatement(deleteSql);
 
-        statement.setInt(1, product_id);
+        statement.setInt(1, productID);
 
         int productDeleted = statement.executeUpdate();
 
@@ -95,6 +95,27 @@ public class ProductServiceImpl implements ProductService{
             confirmationMessage = "product is now deleted";
         }
 
+        // things to explore - admin can only delete via id, and user can delete/remove from cart by searching for name
+        // how do we add a delete successful message? We have it in the code but it is not implemented
+        return confirmationMessage;
+    }
+
+    @Override
+    public String deleteProductbyName(String productName) throws SQLException {
+        String confirmationMessage = "error";
+
+        Connection con = DBConnect.connectDB();
+
+        String deleteByNameSql = "DELETE FROM products WHERE product_name = ? ";
+        PreparedStatement  statement = con.prepareStatement(deleteByNameSql);
+
+        statement.setString(1, productName);
+
+        int productDeleted = statement.executeUpdate();
+
+        if (productDeleted > 0) {
+            confirmationMessage = "product is now deleted";
+        }
         return confirmationMessage;
     }
 
@@ -107,7 +128,7 @@ public class ProductServiceImpl implements ProductService{
         String searchSql = "SELECT * FROM products WHERE product_name LIKE ?";
         PreparedStatement statement = con.prepareStatement(searchSql);
 
-        statement.setString(1, product_name+"%");
+        statement.setString(1, product_name + "%");
         //statement.setInt(2, product_id);
 
         ResultSet resultSet = statement.executeQuery();

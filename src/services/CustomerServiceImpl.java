@@ -71,17 +71,17 @@ public class CustomerServiceImpl implements CustomerService{
         String searchCustomerSql = "SELECT * FROM customers WHERE customer_name LIKE ?";
         PreparedStatement statement = con.prepareStatement(searchCustomerSql);
 
-        statement.setString(1, customer_name+"%");
+        statement.setString(1, customer_name + "%" );
 
         ResultSet resultSet = statement.executeQuery();
 
         System.out.printf("%-20s %-20s %-20s %-20s %-20s\n", "Customer_ID", "Customer Name", "Customer Email", "Customer Address", "Password");
 
-        while (resultSet.next()) {
-            System.out.printf("%-20s %-20s %-20s %-20s %-20s\n", resultSet.getString("customer_id"),
-                    resultSet.getString("customer_name"), resultSet.getString("customer_email"),
-                    resultSet.getString("customer_address"), resultSet.getString("password"));
-                    confirmSearch = true;
+        while (resultSet.next()){
+                System.out.printf("%-20s %-20s %-20s %-20s %-20s\n", resultSet.getString("customer_id"),
+                        resultSet.getString("customer_name"), resultSet.getString("customer_email"),
+                        resultSet.getString("customer_address"), resultSet.getString("password"));
+            confirmSearch = true;
         }
         return confirmSearch;
     }
